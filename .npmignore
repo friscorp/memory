@@ -1,0 +1,16 @@
+src/
+scripts/
+examples/
+benchmarks/
+.memory-runtime/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+.vscode/
+.idea/
+.DS_Store
+*.log
+tsconfig.json
+.gitignore
+.claude/
+CLAUDE.md

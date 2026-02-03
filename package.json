@@ -1,0 +1,54 @@
+{
+  "name": "memory-runtime",
+  "version": "0.1.0",
+  "description": "Local-first context runtime SDK for LLM applications",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run clean && npm run build",
+    "bench": "tsx scripts/bench.ts",
+    "bench:quick": "BENCH_TURNS=10 tsx scripts/bench.ts",
+    "bench:full": "tsx scripts/bench.ts",
+    "test:determinism": "tsx scripts/test-determinism.ts"
+  },
+  "keywords": [
+    "llm",
+    "context",
+    "memory",
+    "local-first",
+    "sqlite",
+    "prompt-engineering",
+    "openai",
+    "gemini",
+    "anthropic"
+  ],
+  "author": "Debrev",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.8",
+    "@types/node": "^20.11.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "better-sqlite3": "^9.2.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "dist/**",
+    "README.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/friscorp/memory-runtime"
+  }
+}

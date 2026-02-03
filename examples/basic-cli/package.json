@@ -1,0 +1,21 @@
+{
+    "name": "memory-runtime",
+    "version": "0.1.0",
+    "type": "module",
+    "private": true,
+    "description": "Basic CLI example for memory-runtime SDK, built by debrev.",
+    "scripts": {
+        "start": "node --loader ts-node/esm src/main.ts",
+        "build": "tsc",
+        "dev": "node --loader ts-node/esm src/main.ts"
+    },
+    "dependencies": {
+        "memory-runtime": "file:../..",
+        "openai": "^4.20.0"
+    },
+    "devDependencies": {
+        "@types/node": "^20.10.0",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.3.3"
+    }
+}

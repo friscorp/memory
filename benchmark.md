@@ -3,76 +3,76 @@
 We benchmarked a real Next.js app that answers questions from a local markdown knowledge base (“AcmeAuth”).
 The app was tested in two modes:
 
-Naive: On every request, resend the entire KB (~4k chars) + growing chat history.
+### Naive: On every request, resend the entire KB (~4k chars) + growing chat history.
 
-Runtime: Ingest the KB once, then compile a bounded prompt by selecting only relevant artifacts per request.
+### Runtime: Ingest the KB once, then compile a bounded prompt by selecting only relevant artifacts per request.
 
 Both modes used the same model, same UI, and answered the same questions.
 
-Test setup
+#### Test setup
 
-10 realistic questions (pricing, errors, session timeouts, SDK usage, troubleshooting)
+- 10 realistic questions (pricing, errors, session timeouts, SDK usage, troubleshooting)
 
-Single continuous chat session
+- Single continuous chat session
 
-Model: gpt-4o-mini
+- Model: gpt-4o-mini
 
-Budget (runtime mode): 2000 tokens
+- Budget (runtime mode): 750 tokens
 
-Metrics recorded per request:
+- Metrics recorded per request:
 
-estimated input tokens
+- estimated input tokens
 
-latency (ms)
+- latency (ms)
 
-context included (KB chars vs artifacts)
+- context included (KB chars vs artifacts)
 
-Results (summary)
+### Results (summary)
 
-Naive mode
+#### Naive mode
 
-Estimated tokens per request: ~1100 → ~1380 (grows with chat length)
+- Estimated tokens per request: ~1100 → ~1380 (grows with chat length)
 
-KB characters sent every request: ~3934
+- KB characters sent every request: ~3934
 
-Chat history grows unbounded
+- Chat history grows unbounded
 
-Cost scales linearly with session length
+- Cost scales linearly with session length
 
-Runtime mode
+#### Runtime mode
 
-Estimated tokens per request: ~572 (flat across all turns)
+- Estimated tokens per request: ~572 (flat across all turns)
 
-KB replayed: never
+- KB replayed: never
 
-Context included: ~10 selected artifacts
+- Context included: ~10 selected artifacts
 
-Prompt size remains bounded and deterministic
+- Prompt size remains bounded and deterministic
 
-Key takeaways
+### Key takeaways
 
-~50–60% fewer input tokens per request compared to naive replay
+- ~50–60% fewer input tokens per request compared to naive replay
 
-No prompt growth over time — long chats stay cheap and stable
+- No prompt growth over time — long chats stay cheap and stable
 
-No answer quality regression — all questions answered correctly in both modes
+- No answer quality regression — all questions answered correctly in both modes
 
-Drop-in optimization: same app, same model call, different context compiler
+- Drop-in optimization: same app, same model call, different context compiler
 
-Why this matters
+### Why this matters
 
-Naively replaying context causes token costs (and instability) to grow with every turn.
-memory-runtime replaces replay with state + evidence selection, keeping prompts small while preserving retrieval quality.
+**Naively replaying context causes token costs (and instability) to grow with every turn.
+memory-runtime replaces replay with state + evidence selection, keeping prompts small while preserving retrieval quality.**
 
 This benchmark demonstrates that you can:
 
-stop resending the entire KB
+- stop resending the entire KB
 
-cap prompt size under a fixed budget
+- cap prompt size under a fixed budget
 
-maintain correctness in real applications
+- maintain correctness in real applications
 
-### Results (naive)
+## Results (naive)
 
 | # | Question | tokenEstimate | latencyMs | kbChars | historyCount | included | dropped |
 |---:|---|---:|---:|---:|---:|---:|---:|
@@ -87,7 +87,7 @@ maintain correctness in real applications
 | 9 | Does the Developer plan support MFA? |  | 1255 | 3934 | 17 |  |  |
 | 10 | What happens if I exceed my MAU limit on Pro? |  | 809 | 3934 | 19 |  |  |
 
-### Results (runtime)
+## Results (runtime)
 
 | # | Question | tokenEstimate | latencyMs | kbChars | historyCount | included | dropped |
 |---:|---|---:|---:|---:|---:|---:|---:|

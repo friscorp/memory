@@ -101,3 +101,7 @@ This benchmark demonstrates that you can:
 | 8 | What are the recommended troubleshooting steps if logins intermittently fail? | 572 | 5068 |  |  | 10 | 0 |
 | 9 | Does the Developer plan support MFA? | 572 | 666 |  |  | 10 | 0 |
 | 10 | What happens if I exceed my MAU limit on Pro? | 572 | 1593 |  |  | 10 | 0 |
+
+
+### *note*
+*In runtime mode, raw kbChars and historyCount are no longer relevant metrics because the KB and chat history are not replayed; instead, the runtime injects a small, bounded set of selected artifacts.*
